@@ -48,7 +48,9 @@ public class Connection
         try {
             if (con != null) {
                 con.close();
-                st.close();
+//                st.close();
+//                rs.close();
+//            preparedStatement.close();
                 System.out.println("1");
             }
         } catch (Exception e2) {

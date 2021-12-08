@@ -84,11 +84,11 @@ public class Users_Sql
         this.hobby = hobby;
     }
 
-    public int getlcknum() {
+    public String getlcknum() {
         return lcknum;
     }
 
-    public void setlcknum(int lcknum) {
+    public void setlcknum(String lcknum) {
         this.lcknum = lcknum;
     }
 
@@ -116,7 +116,7 @@ public class Users_Sql
     private  String marry;
     private  String edu;
     private  String hobby;
-    private  int lcknum;
+    private  String lcknum;
     private  String bscolor;
     private  String bsmusic;
     

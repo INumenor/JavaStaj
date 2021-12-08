@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Sorular.Sorular_Sql"%>
 <%@page import="Sorular.Sorular_db"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,19 +45,9 @@
             <%       
             }
             %>   
-            
-
     </table>
         <input type="reset" value="Temizle" name="clear" />
         <input type="submit" value="Gönder" name="submit" />              
    </form>
-</body>
-<%
-    /*
-      SelDataFormWebUsers U = new SelDataFormWebUsers();
-      U.firstname = request.getParameter("firstname");
-      U.user();
-*/
-%>
-      
+</body>   
 </html>
