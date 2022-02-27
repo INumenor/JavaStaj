@@ -11,53 +11,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Custom fonts for this template-->
+    <link href="startbootstrap-sb-admin-2-gh-pages/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
+<style>
+    body
+    {
+        background-image: url("Image/bg7.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    </style>
 <body>
     <%
         Users_db dbUsers = new Users_db();
-        Users_Sql sqlUsers = new Users_Sql();
-        
-        //JSONObject obj = new JSONObject();
-        
-        //obj.put("firstname",request.getParameter("soru1"));
-        //obj.put("lastname",request.getParameter("soru2"));
-        //obj.put("age",request.getParameter("soru3"));
-        //obj.put("email",request.getParameter("soru4"));
-        //obj.put("telnum",request.getParameter("soru5"));
-        //obj.put("bircty",request.getParameter("soru6"));
-        //obj.put("marry",request.getParameter("soru7"));
-        //obj.put("edu",request.getParameter("soru8"));
-        //obj.put("hobby",request.getParameter("soru9"));
-        //obj.put("lcknum",request.getParameter("soru10"));
-        //obj.put("bscolor",request.getParameter("soru11"));
-        //obj.put("bsmusic",request.getParameter("soru12"));
-        
-        //out.print(obj);
 
-        sqlUsers.setFirstname(request.getParameter("soru1"));
-        sqlUsers.setLastname(request.getParameter("soru2"));
-        sqlUsers.setage(Integer.parseInt(request.getParameter("soru3")));
-        sqlUsers.setEmail(request.getParameter("soru4"));
-        sqlUsers.settelnum(Integer.parseInt(request.getParameter("soru5")));
-        sqlUsers.setBircty(request.getParameter("soru6"));
-        sqlUsers.setMarry(request.getParameter("soru7"));
-        sqlUsers.setEdu(request.getParameter("soru8"));
-        sqlUsers.setHobby(request.getParameter("soru9"));
-        sqlUsers.setlcknum(request.getParameter("soru10"));
-        sqlUsers.setBscolor(request.getParameter("soru11"));
-        sqlUsers.setBsmusic(request.getParameter("soru12"));
-  
-        boolean a = dbUsers.users_save(sqlUsers,request);
+        boolean a = dbUsers.users_save(request);
     %>
     <%if(a==true)
     {
     %>
-    <h1>Kayıt Basarılı</h1>
-    <%  }else
+    <center>
+        <h1 style="color:white">KAYIT BASARILI</h1>   
+    </center>  
+        <h1></h1>   
+    <center>
+        <div class="my-2"></div>
+                <a href="javascript:window.close();" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Pencereyi Kapat</span>
+                </a><!-- comment -->
+    </center>
+    <%}else
     {%>
-    <h1>Kayıt Başarısız</h1>
+<center>
+        <h1 style="color:white">KAYIT BAŞARISIZ</h1>
+    </center>  
+        <h1></h1>   
+    <center>
+        <div class="my-2"></div>
+                <a href="javascript:window.close();" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Pencereyi Kapat</span>
+                </a><!-- comment -->
+    </center>
     <%}
     %>
 </body>

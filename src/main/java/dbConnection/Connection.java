@@ -23,7 +23,6 @@ public class Connection
     public static ResultSet rs;
     
     public void connection_open() {
-//conneciton_close();
         //Data getirmek için
         try {
             if (con == null) {

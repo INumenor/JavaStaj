@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Sorular;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -16,13 +14,17 @@ import org.json.simple.JSONObject;
 
 public class Sorular_db extends dbConnection.Connection
 {
+    public static JSONArray obj3 = new JSONArray();
     public static JSONObject obj2 = new JSONObject();
+    public static String[] Sorular2;
     public String Sorular;
+    public static int iKacSoru;
+    public static int iTemelSorular;
     
-    public ArrayList<Sorular_Sql> gettum_sorular() throws SQLException{
+    public ArrayList<Sorular_Sql> gettum_sorular(int iSoruSayisi, String SecilenSorular) throws SQLException{
 
     connection_open();
-        System.out.println("Actım1");
+    System.out.println("Actım1");
     String sql_query="select * from forms ";
     preparedStatement = con.prepareStatement(sql_query);
 
@@ -31,42 +33,60 @@ public class Sorular_db extends dbConnection.Connection
     ArrayList<Sorular_Sql> list = new ArrayList<Sorular_Sql>();
     
      Random random = new Random();
-//   obj2 = new JSONObject();
      System.out.println("deneme0");
      
-    
-    int iTemelSorular = 5, iDegiskenSorular = 12, iKacSoru = 7, iSayi = 0, iBayrak = 0;
+    int iToplamSoruSayisi = iToplamSoruSayisi();
+     
+    iTemelSorular = 5;
+    this.iKacSoru = iSoruSayisi;
+    int iDegiskenSorular = iToplamSoruSayisi-iTemelSorular, iSayi = 0, iBayrak = 0;
+    System.out.println("GEldim"+iKacSoru+"  "+iSoruSayisi);
     int[] idizi = new int[(iTemelSorular + iDegiskenSorular + 1)];
-    for(int i = 0; i < iKacSoru; i++)
-    {
-        iSayi = random.nextInt(iDegiskenSorular)+ iTemelSorular + 1;
-        iBayrak = 0;
-        System.out.println("iSayi ="+ iSayi);
-        
-        for(int j = 0; j <= iKacSoru; j++)
+    
+    if(SecilenSorular == ""){
+        for(int i = 0; i < iKacSoru; i++)
         {
-            if(iSayi == idizi[j])
-            {
-                iBayrak = 0;
-                System.out.println("BREAK!");
-                break;
-            }
-            else if (iSayi != idizi[j])
-            {
-                iBayrak = 1;
-            }
-        }
-      if(iBayrak == 1)
-        {
-            idizi[i] = iSayi;
+            iSayi = random.nextInt(iDegiskenSorular)+ iTemelSorular + 1;
             iBayrak = 0;
+            System.out.println("iSayi ="+ iSayi);
+            
+            for(int j = 0; j <= iKacSoru; j++)
+            {
+                if(iSayi == idizi[j])
+                {
+                    iBayrak = 0;
+                    System.out.println("BREAK!");
+                    break;
+                }
+                else if (iSayi != idizi[j])
+                {
+                    iBayrak = 1;
+                }
+            }
+          if(iBayrak == 1)
+            {
+                idizi[i] = iSayi;
+                iBayrak = 0;
+            }
+          else
+            {
+                i--;
+            }
         }
-      else
-        {
-            i--;
-        }
-        //System.out.println("diziyazilan = " + idizi[i]);
     }
+    else{
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        String Sorular[] = SecilenSorular.split("-");
+        System.out.println("____________________________________");
+        for(int i = 0; i < Sorular.length; i++){
+            System.out.println("!?!?");
+            idizi[i] = Integer.parseInt(Sorular[i]);
+            
+        }
+        System.out.println("???????????????????????????????????");
+        
+    }
+    
         System.out.println("deneme1");
     while (rs.next()) 
     {
@@ -86,45 +106,41 @@ public class Sorular_db extends dbConnection.Connection
            }
         }
     }
-//       list.add(Soru);
-//       iSayac++;
-        
-               
+          
      String Sorular ="";
         int iSayac;
-        //for (iSayac=5;iSayac<list.size();iSayac++) 
-        for (iSayac=5;iSayac<12;iSayac++)
+        Sorular2 = new String[iTemelSorular + iKacSoru];
+        System.out.println(iTemelSorular + " " + iKacSoru);
+        for (iSayac=iTemelSorular;iSayac<iTemelSorular + iKacSoru ;iSayac++)
         {   
-            
+            System.out.println("Geldim");
             Sorular = Sorular + " " + list.get(iSayac).getSorular() ;
-//            obj3.put("Sorular"+iSayac,Soru.getSorular());
-//            System.out.println(obj3.toString());
-//            System.out.println(Soru.getId());
-//            System.out.println(Soru.getSorular());
-        }    
+            Sorular2[iSayac] = list.get(iSayac).getSorular();
+            System.out.println(Sorular2[iSayac]);
+        }   
         obj2.put("Sorular", Sorular);
         System.out.println(obj2.get("Sorular"));
         
-//        System.out.println(Sorular);
-//        System.out.println(obj2.get("soru0"));
-//        System.out.println(obj2.get("soru1"));
-//        System.out.println(obj2.get("soru2"));
-//        System.out.println(obj2.get("soru3"));
-//        System.out.println(obj2.get("soru4"));
         
-////     connection_close();
+        
+
+//   connection_close();
         System.out.println("Kapadım1");
+        System.out.println(iKacSoru);
     return list;
     }
-    public static void main(String[] args) throws SQLException 
+    
+     public int iToplamSoruSayisi() throws SQLException
     {
-        Sorular_db Sorudb = new Sorular_db();
-        ArrayList<Sorular_Sql> list = Sorudb.gettum_sorular();
-//        for (Sorular_Sql Soru : list) 
-//        {
-//            System.out.println(Soru.getId());
-//            System.out.println(Soru.getSorular());
-//        }
-         
+        int iToplamSoruSayisi=0;
+        String sql_queryy="select * from forms ";
+        preparedStatement = con.prepareStatement(sql_queryy);
+        ResultSet rs2 = preparedStatement.executeQuery();
+        while (rs2.next()) 
+        {
+            iToplamSoruSayisi++;
+        }
+        
+        return iToplamSoruSayisi;
     }
 }

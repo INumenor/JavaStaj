@@ -11,7 +11,6 @@ package Sorular;
  */
 public class Sorular_Sql 
 {
-
     public int getId() {
         return id;
     }
@@ -28,5 +27,5 @@ public class Sorular_Sql
         this.Sorular = Sorular;
     }
     private int id;
-    private String Sorular;
+    private String Sorular;;
 }
